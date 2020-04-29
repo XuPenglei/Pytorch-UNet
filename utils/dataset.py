@@ -8,6 +8,7 @@ import logging
 from PIL import Image
 
 
+
 class BasicDataset(Dataset):
     def __init__(self, imgs_dir, masks_dir, scale=1):
         self.imgs_dir = imgs_dir
@@ -54,7 +55,7 @@ class BasicDataset(Dataset):
         img = Image.open(img_file[0])
 
         assert img.size == mask.size, \
-            f'Image and mask {idx} should be the same size, but are {img.size} and {mask.size}'
+            f'Image and mask {idx} should be the same size, but are {img.shape} and {mask.shape}'
 
         img = self.preprocess(img, self.scale)
         mask = self.preprocess(mask, self.scale)
