@@ -10,7 +10,7 @@ from torch import optim
 from tqdm import tqdm
 
 from eval import eval_net
-from unet import UNet
+from unet import UNet,ResNetUnet
 
 # from torch.utils.tensorboard import SummaryWriter
 from utils.RS_dataset import BasicDataset
@@ -21,7 +21,7 @@ from torch.utils.data import DataLoader, random_split
 dir_checkpoint = 'checkpoints/'
 # path_img = r'F:\数据\L18_Dataset\test\test.tif'
 # path_mask = r'F:\数据\L18_Dataset\test\testmask.tif'
-path_img = r'F:\数据\tiandiIMG\shanghai.tif'
+path_img = r'F:\数据\L18_Dataset\IMG\shanghai.tif'
 path_mask = r'F:\数据\L18_Dataset\LABEL\shanghai.tif'
 
 
@@ -34,7 +34,7 @@ def train_net(net,
               save_cp=True,
               img_scale=0.5):
 
-    dataset = BasicDataset(path_img, path_mask,512)
+    dataset = BasicDataset(path_img, path_mask,256)
     n_val = int(len(dataset) * val_percent)
     n_train = len(dataset) - n_val
     train, val = random_split(dataset, [n_train, n_val])
@@ -93,7 +93,7 @@ def train_net(net,
 
                 pbar.update(imgs.shape[0])
                 global_step += 1
-                if global_step % (len(dataset) // batch_size) == 0:
+                if global_step % (2*len(dataset) // batch_size) == 0:
 
                     # for tag, value in net.named_parameters():
                     #     tag = tag.replace('.', '/')
@@ -115,7 +115,7 @@ def train_net(net,
                     #     writer.add_images('masks/true', true_masks, global_step)
                     #     writer.add_images('masks/pred', torch.sigmoid(masks_pred) > 0.5, global_step)
 
-        if save_cp and (epoch+1)%10==0:
+        if save_cp and (epoch+1)%20==0:
             try:
                 os.mkdir(dir_checkpoint)
                 logging.info('Created checkpoint directory')
@@ -135,7 +135,7 @@ def get_args():
                         help='Number of epochs', dest='epochs')
     parser.add_argument('-b', '--batch-size', metavar='B', type=int, nargs='?', default=1,
                         help='Batch size', dest='batchsize')
-    parser.add_argument('-l', '--learning-rate', metavar='LR', type=float, nargs='?', default=8e-4,
+    parser.add_argument('-l', '--learning-rate', metavar='LR', type=float, nargs='?', default=1e-3,
                         help='Learning rate', dest='lr')
     parser.add_argument('-f', '--load', dest='load', type=str, default=False,
                         help='Load model from a .pth file')
@@ -148,7 +148,7 @@ def get_args():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s',filename='train_log.log')
     args = get_args()
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     logging.info(f'Using device {device}')
@@ -159,11 +159,11 @@ if __name__ == '__main__':
     #   - For 1 class and background, use n_classes=1
     #   - For 2 classes, use n_classes=1
     #   - For N > 2 classes, use n_classes=N
-    net = UNet(n_channels=3, n_classes=1, bilinear=True)
+    # net = UNet(n_channels=3, n_classes=1, bilinear=True)
+    net = ResNetUnet(n_classes=1,n_channels=3)
     logging.info(f'Network:\n'
                  f'\t{net.n_channels} input channels\n'
-                 f'\t{net.n_classes} output channels (classes)\n'
-                 f'\t{"Bilinear" if net.bilinear else "Transposed conv"} upscaling')
+                 f'\t{net.n_classes} output channels (classes)\n')
 
     if args.load:
         net.load_state_dict(

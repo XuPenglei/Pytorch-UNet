@@ -1,0 +1,95 @@
+INFO: Using device cuda
+INFO: Network:
+	3 input channels
+	1 output channels (classes)
+	Bilinear upscaling
+INFO: Creating dataset with 1012 examples
+INFO: Starting training:
+        Epochs:          100
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   911
+        Validation size: 101
+        Checkpoints:     True
+        Device:          cuda
+        Images scaling:  0.5
+    
+INFO: Validation Dice Coeff: 0.5126455290482776
+INFO: Validation Dice Coeff: 0.5946881086519449
+INFO: Validation Dice Coeff: 0.6322820334227037
+INFO: Validation Dice Coeff: 0.6855017162195527
+INFO: Validation Dice Coeff: 0.6587829374440826
+INFO: Validation Dice Coeff: 0.6729706469738838
+INFO: Validation Dice Coeff: 0.6716471376395462
+INFO: Validation Dice Coeff: 0.7091227330193661
+INFO: Validation Dice Coeff: 0.7228268325918972
+INFO: Created checkpoint directory
+INFO: Checkpoint 20 saved !
+INFO: Validation Dice Coeff: 0.7142806233155845
+INFO: Validation Dice Coeff: 0.7268114635849944
+INFO: Using device cuda
+INFO: Using device cuda
+INFO: Using device cuda
+INFO: Network:
+	3 input channels
+	1 output channels (classes)
+
+INFO: Creating dataset with 1012 examples
+INFO: Starting training:
+        Epochs:          100
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   911
+        Validation size: 101
+        Checkpoints:     True
+        Device:          cuda
+        Images scaling:  0.5
+    
+INFO: Using device cuda
+INFO: Network:
+	3 input channels
+	1 output channels (classes)
+
+INFO: Creating dataset with 1012 examples
+INFO: Starting training:
+        Epochs:          100
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   911
+        Validation size: 101
+        Checkpoints:     True
+        Device:          cuda
+        Images scaling:  0.5
+    
+INFO: Using device cuda
+INFO: Network:
+	3 input channels
+	1 output channels (classes)
+
+INFO: Creating dataset with 1012 examples
+INFO: Starting training:
+        Epochs:          100
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   911
+        Validation size: 101
+        Checkpoints:     True
+        Device:          cuda
+        Images scaling:  0.5
+    
+INFO: Using device cuda
+INFO: Network:
+	3 input channels
+	1 output channels (classes)
+
+INFO: Creating dataset with 3927 examples
+INFO: Starting training:
+        Epochs:          100
+        Batch size:      1
+        Learning rate:   0.001
+        Training size:   3535
+        Validation size: 392
+        Checkpoints:     True
+        Device:          cuda
+        Images scaling:  0.5
+    

@@ -30,7 +30,7 @@ class BasicDataset(Dataset):
         r = []
         for id in ids:
             mask = self._read_mask(id)
-            if (mask==1).sum()/self.patch**2 > 0.1:
+            if (mask==1).sum()/self.patch**2 > 0.2:
                 r.append(id)
         return r
 
@@ -38,7 +38,7 @@ class BasicDataset(Dataset):
     def _read_mask(self,idx):
         row = idx // self.cols
         col = idx % self.cols
-        mask = self.mask[row * self.patch:row * self.patch + self.patch]
+        mask = self.mask[:,row*self.patch:row*self.patch+self.patch,col*self.patch:col*self.patch+self.patch]
         return mask
 
     def __len__(self):
@@ -65,8 +65,6 @@ class BasicDataset(Dataset):
         idx = self.ids[i]
         row = idx//self.cols
         col = idx%self.cols
-        # row =1
-        # col = 1
         mask = self.mask[:,row*self.patch:row*self.patch+self.patch,col*self.patch:col*self.patch+self.patch]
         img = self.img[:,row*self.patch:row*self.patch+self.patch,col*self.patch:col*self.patch+self.patch]
 
